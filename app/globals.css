@@ -31,3 +31,18 @@ body {
     text-wrap: balance;
   }
 }
+.main-layout{
+  margin-top: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+.ui-example-column{
+  flex: 0.2;
+  padding-left: 1rem;
+  border-right: 1px solid white;
+  
+}
+.rendered-ui-column{
+  flex: 1;
+}
