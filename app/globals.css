@@ -47,6 +47,3 @@ body {
   flex: 1;
 }
 
-.background-color-on-complete{
-  @apply bg-blue-500
-}
