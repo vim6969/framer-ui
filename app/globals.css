@@ -46,3 +46,7 @@ body {
 .rendered-ui-column{
   flex: 1;
 }
+
+.background-color-on-complete{
+  @apply bg-blue-500
+}

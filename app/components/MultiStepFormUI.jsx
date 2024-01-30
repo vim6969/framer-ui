@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { delay, motion } from "framer-motion";
 
 const MultiStepFormUI = () => {
   const [step, setStep] = useState(1);
@@ -24,42 +25,85 @@ const MultiStepFormUI = () => {
 
               return (
                 <>
-                  <div
-                    key={index}
-                    className={`
-                        ${
-                          status == "active"
-                            ? "border-2 border-blue-500 rounded-full  w-12 h-12  bg-white text-blue-500 flex items-center justify-center"
-                            : status == "complete"
-                            ? "bg-blue-500 rounded-full  w-12 h-12  text-blue-500 flex items-center justify-center"
-                            : "border-2 border-slate-200 text-slate-200 rounded-full  w-12 h-12  bg-white  flex items-center justify-center"
-                        }
+                  <div className="relative">
+                    <motion.div
+                      animate={status}
+                      variants={{
+                        complete: {
+                          scale: 1.2,
+                          opacity: 1,
+                          transition:{
+                            delay: 0,
+                            duration: 0.3
+
+                          }
+                          
+                        },
+                        active: {
+                          scale: 1,
+                          opacity: 0
+                        },
+                      }}
+                      transition={{duration: 0.5, type:"tween", ease:"circOut" }}
+                      className="absolute inset-0 bg-blue-200 rounded-full "
+                    ></motion.div>
+                    <motion.div
+                      key={index}
+                      initial={false}
+                      animate={status}
+                      transition={{ duration: 0.2 }}
+                      variants={{
+                        active: {
+                          backgroundColor: "rgb(255,255,255)",
+                          borderColor: "rgb(59 130 246)",
+                          color: "rgb(59 130 246)",
+                        },
+                        inactive: {
+                          backgroundColor: "rgb(255,255,255)",
+                          borderColor: "rgb(226 232 240)",
+                          color: "rgb(148 163 184)",
+                        },
+                        complete: {
+                          backgroundColor: "rgb(59 130 246)",
+                          borderColor: "rgb(59 130 246)",
+                          color: "rgb(59 130 246)",
+                        },
+                      }}
+                      className={`
+                           relative border-2 border-slate-200 text-slate-400 rounded-full  w-12 h-12  bg-white  flex items-center justify-center
                         `}
-                  >
-                    {status == "complete" ? (
-                      <svg
-                      width="28"
-                      height="28"
-                      viewBox="0 0 7 7"
-                      fill="none"
-                      style={{ maskType: "alpha", maskUnits: "userSpaceOnUse" }}
                     >
-                      <mask id="mask0_29_19">
-                        <rect x="0.515137" y="0.0509033" width="6" height="6" fill="#D9D9D9" />
-                      </mask>
-                      <g mask="url(#mask0_29_19)">
-                        <path d="M2.90266 4.55093L1.47766 3.12593L1.83391 2.76968L2.90266 3.83843L5.19641 1.54468L5.55266 1.90093L2.90266 4.55093Z" fill="#FDFDFD" />
-                      </g>
-                    </svg>
-                    
-                    ) : (
-                      item
-                    )}
+                      {status == "complete" ? (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 30 30"
+                          stroke="#fff"
+                          strokeWidth={3}
+                          fill="none"
+                        >
+                          <motion.path
+                            initial={{ pathLength: 0 }}
+                            animate={{ pathLength: 1 }}
+                            transition={{
+                              delay: 0.2,
+                              type: "tween",
+                              ease: "easeOut",
+                            }}
+                            d="M 26.980469 5.9902344 A 1.0001 1.0001 0 0 0 26.292969 6.2929688 L 11 21.585938 L 4.7070312 15.292969 A 1.0001 1.0001 0 1 0 3.2929688 16.707031 L 10.292969 23.707031 A 1.0001 1.0001 0 0 0 11.707031 23.707031 L 27.707031 7.7070312 A 1.0001 1.0001 0 0 0 26.980469 5.9902344 z"
+                          ></motion.path>
+                        </svg>
+                      ) : (
+                        item
+                      )}
+                    </motion.div>
                   </div>
                 </>
               );
             })}
           </div>
+
           <div className="px-8 pb-8">
             <div className="">
               <div className="mt-2 h-6 w-40 rounded bg-slate-100" />
@@ -81,7 +125,7 @@ const MultiStepFormUI = () => {
               onClick={() => setStep(step > 4 ? step : step + 1)}
               className={`${
                 step > 4 ? "pointer-events-none opacity-50" : ""
-              } cursor-pointer flex items-center rounded-full bg-blue-500 py-1.5 px-2 mr-4 hover:bg-blue-800`}
+              } text-white cursor-pointer flex items-center rounded-full bg-blue-500 py-1.5 px-2 mr-4 hover:bg-blue-800`}
             >
               Continue
             </button>
